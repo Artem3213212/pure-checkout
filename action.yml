@@ -8,7 +8,7 @@ inputs:
   fetch-depth:
     description: 'Number of commits to fetch. 0 indicates all history.'
     required: false
-    default: '0'
+    default: '1'
 
 runs:
   using: "composite"
@@ -47,7 +47,7 @@ runs:
           if [ "$INPUT_DEPTH" = "0" ]; then
              git clone "$AUTH_URL" .
           else
-             git clone --depth "$INPUT_DEPTH" "$AUTH_URL" .
+             git clone --depth "$INPUT_DEPTH" --reference ${{ github.sha }} "$AUTH_URL" .
           fi
         else
           echo "Repo exists, fetching..."
