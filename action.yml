@@ -47,7 +47,7 @@ runs:
           if [ "$INPUT_DEPTH" = "0" ]; then
              git clone "$AUTH_URL" .
           else
-             git clone --depth "$INPUT_DEPTH" --reference ${{ github.sha }} "$AUTH_URL" .
+             git clone --depth "$INPUT_DEPTH" --revision ${{ github.sha }} "$AUTH_URL" .
           fi
         else
           echo "Repo exists, fetching..."
