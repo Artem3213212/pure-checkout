@@ -8,7 +8,7 @@ inputs:
   fetch-depth:
     description: 'Number of commits to fetch. 0 indicates all history.'
     required: false
-    default: '0'
+    default: '1'
 
 runs:
   using: "composite"
