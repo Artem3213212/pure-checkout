@@ -51,7 +51,9 @@ runs:
         
         git config --global --add safe.directory '*'
         git lfs install
+        git reset --hard HEAD
         git clean -fdx || true
+        git submodule foreach --recursive 'git reset --hard HEAD'
         git submodule foreach --recursive 'git clean -fdx' || true
 
         REPO_URL="${{ github.server_url }}/${{ github.repository }}.git"
