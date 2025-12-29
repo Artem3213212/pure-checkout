@@ -36,6 +36,9 @@ runs:
         INPUT_TOKEN: ${{ inputs.token }}
         INPUT_DEPTH: ${{ inputs.fetch-depth }}
       run: |
+        echo "Current dir:"
+        pwd
+        
         git config --global --add safe.directory '*'
         git lfs install
 
