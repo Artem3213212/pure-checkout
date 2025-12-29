@@ -38,6 +38,10 @@ runs:
       run: |
         echo "Current dir:"
         pwd
+        echo ""
+        echo "Current env:"
+        printenv
+        echo ""
         
         git config --global --add safe.directory '*'
         git lfs install
