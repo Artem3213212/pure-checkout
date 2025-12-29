@@ -51,6 +51,7 @@ runs:
         
         git config --global --add safe.directory '*'
         git lfs install
+        git clean -fdx || true
 
         REPO_URL="${{ github.server_url }}/${{ github.repository }}.git"
         AUTH_URL=$(echo "$REPO_URL" | sed "s|https://|https://git:$INPUT_TOKEN@|")
