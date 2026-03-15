@@ -77,7 +77,11 @@ runs:
 
         echo "Updating submodules..."
         git submodule sync --recursive
-        git submodule update --init --recursive
+        if [ "$INPUT_DEPTH" = "0" ]; then
+          git submodule update --init --single-branch --recursive
+        else
+          git submodule update --init --depth "$INPUT_DEPTH" --single-branch --recursive
+        fi
 
         echo "Pulling LFS objects..."
         git lfs pull
