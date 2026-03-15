@@ -9,8 +9,8 @@ inputs:
     description: 'Number of commits to fetch. 0 indicates all history.'
     required: false
     default: '1'
-  skip-submodule:
-    description: 'Skip submodule'
+  skip-submodules:
+    description: 'Skip submodules'
     required: false
     default: 'false'
   path:
@@ -43,6 +43,7 @@ runs:
       env:
         INPUT_TOKEN: ${{ inputs.token }}
         INPUT_DEPTH: ${{ inputs.fetch-depth }}
+        SKIP_SUBMODULES: ${{ inputs.skip-submodules }}
       run: |
         echo "Current dir:"
         pwd
@@ -79,7 +80,7 @@ runs:
         echo "Checking out ${{ github.sha }}..."
         git checkout -f ${{ github.sha }}
 
-        if [ "$INPUT_DEPTH" = "false" ]; then
+        if [ "$SKIP_SUBMODULES" = "false" ]; then
           echo "Updating submodules..."
           git submodule sync --recursive
           if [ "$INPUT_DEPTH" = "0" ]; then
