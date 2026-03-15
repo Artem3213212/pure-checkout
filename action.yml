@@ -9,6 +9,10 @@ inputs:
     description: 'Number of commits to fetch. 0 indicates all history.'
     required: false
     default: '1'
+  skip-submodule:
+    description: 'Skip submodule'
+    required: false
+    default: 'false'
   path:
     description: 'Relative path under $GITHUB_WORKSPACE to place the repository'
     required: false
@@ -75,12 +79,14 @@ runs:
         echo "Checking out ${{ github.sha }}..."
         git checkout -f ${{ github.sha }}
 
-        echo "Updating submodules..."
-        git submodule sync --recursive
-        if [ "$INPUT_DEPTH" = "0" ]; then
-          git submodule update --init --single-branch --recursive
-        else
-          git submodule update --init --depth "$INPUT_DEPTH" --single-branch --recursive
+        if [ "$INPUT_DEPTH" = "false" ]; then
+          echo "Updating submodules..."
+          git submodule sync --recursive
+          if [ "$INPUT_DEPTH" = "0" ]; then
+            git submodule update --init --single-branch --recursive
+          else
+            git submodule update --init --depth "$INPUT_DEPTH" --single-branch --recursive
+          fi
         fi
 
         echo "Pulling LFS objects..."
